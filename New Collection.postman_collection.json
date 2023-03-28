@@ -23,7 +23,7 @@
 							"pm.test(\"idtest\", function() {\r",
 							"    pm.expect(responseData.data[0].id).to.eql(219685)\r",
 							"})\r",
-							"pm.collectionVariables.set(\"Location\", responseData.data[0].tourist_location)\r",
+							"pm.collectionVariables.set(\"TouristId\", responseData.data[0].id)\r",
 							""
 						],
 						"type": "text/javascript"
@@ -53,10 +53,41 @@
 			"response": []
 		},
 		{
-			"name": "New Request",
+			"name": "Get Tourist by Id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status\", function() {\r",
+							"    pm.expect(pm.response.status).to.eql(\"OK\")\r",
+							"})\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"const responseData= pm.response.json()\r",
+							"pm.test(\"NameResponse\", function() {\r",
+							"    pm.expect(responseData.createdat).to.eql(\"2023-03-28T20:40:15.9847848\")\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/Tourist/{{TouristId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"Tourist",
+						"{{TouristId}}"
+					]
+				}
 			},
 			"response": []
 		}
@@ -88,7 +119,7 @@
 			"type": "string"
 		},
 		{
-			"key": "Location",
+			"key": "TouristId",
 			"value": ""
 		}
 	]
